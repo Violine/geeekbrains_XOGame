@@ -73,21 +73,28 @@ public class Main {
         int[] aiArray;
         Random random = new Random();
         if (isEmptyCell()) {
+            aiArray = defendCell();
+            coord = getMaxElementIndex(aiArray)-1;
+            System.out.println(coord);
             do {
-                aiArray = defendCell();
-                coord = getMaxElementIndex(aiArray);
-                System.out.println(coord);
-                if (coord < SIZE){
-                    x = coord;
+                if (coord < SIZE) {
+                    x = coord+1;
                     y = random.nextInt(SIZE + 1);
-                }else if (coord >= SIZE || coord < SIZE*2){
-                    y = coord;
+                } else if (coord >= SIZE || coord < SIZE * 2) {
+                    y = coord-SIZE+1;
                     x = random.nextInt(SIZE + 1);
+                } else if (coord == SIZE * 2) {
+                    x = random.nextInt(SIZE + 1);
+                    y = random.nextInt(SIZE + 1);
+                } else {
+                    x = random.nextInt(SIZE + 1);
+                    y = random.nextInt(SIZE + 1);
                 }
             }
             while (!isCellFree(x, y));
             map[x - 1][y - 1] = DOT_O;
             printMap();
+
         } else System.out.println("Поле заполнено!");
     }
 
