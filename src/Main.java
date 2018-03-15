@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     static char[][] map;
-    static final int SIZE = 5;
+    static final int SIZE = 3;
     static final int DOTS_TO_WIN = 3;
 
     static final char DOT_EMPTY = '•';
@@ -14,15 +14,16 @@ public class Main {
     public static void main(String[] args) {
         initMap();
         printMap();
-
-        while (isEmptyCell()) {
-            if (!isWin()) {
+        do {
+            if (isEmptyCell()) {
                 humanTurn();
                 aiTurn();
+            } else {
+                System.out.println("НИЧЬЯ");
+                break;
             }
+        } while (!isWin());
 
-        }
-        System.out.println("ставить больше некуда");
     }
 
     public static void initMap() {
@@ -69,14 +70,15 @@ public class Main {
         int x;
         int y;
         Random random = new Random();
-        do {
-            x = random.nextInt(SIZE + 1);
-            y = random.nextInt(SIZE + 1);
-        }
-        while (!isCellFree(x, y) && isEmptyCell());
-        map[x - 1][y - 1] = DOT_O;
-        printMap();
-
+        if (isEmptyCell()) {
+            do {
+                x = random.nextInt(SIZE + 1);
+                y = random.nextInt(SIZE + 1);
+            }
+            while (!isCellFree(x, y));
+            map[x - 1][y - 1] = DOT_O;
+            printMap();
+        } else System.out.println("Поле заполнено!");
     }
 
     private static boolean isCellFree(int x, int y) {
@@ -131,7 +133,7 @@ public class Main {
             System.out.println("ПОБЕДА! Диагональ ");
             return true;
         }
-        System.out.println(Arrays.toString(diagonalArray1));
+        //  System.out.println(Arrays.toString(diagonalArray1));
         return false;
     }
 
@@ -145,7 +147,7 @@ public class Main {
                 return false;
             } // если не совпадают - выходим, так как победы нет
         }
-        System.out.println("СОВПАЛО");
+        //  System.out.println("СОВПАЛО");
         return true;
     }
 }
