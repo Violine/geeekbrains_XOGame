@@ -69,6 +69,7 @@ public class Main {
     private static void aiTurn() {
         int x;
         int y;
+        int stepCount; //
         Random random = new Random();
         if (isEmptyCell()) {
             do {
@@ -85,7 +86,6 @@ public class Main {
         if (x <= SIZE && x >= 1 && y <= SIZE && y >= 1 && map[x - 1][y - 1] == DOT_EMPTY) { // проверяем попали ли мы в поле
             return true;
         } else {
-            // System.out.println("Неверные координаты, либо ячейка уже занята");
             return false;
         }
     }
@@ -114,7 +114,6 @@ public class Main {
             for (int j = 0; j < SIZE; j++) {
                 verticalArray[j] = map[j][i]; // записываем значение столбца в массив
             }
-            // System.out.println(Arrays.toString(verticalArray));
             if (!compareArray(verticalArray)) continue;
             else {
                 System.out.println("ПОБЕДА! в столбце номер " + (i + 1));
@@ -133,8 +132,10 @@ public class Main {
             System.out.println("ПОБЕДА! Диагональ ");
             return true;
         }
-        //  System.out.println(Arrays.toString(diagonalArray1));
         return false;
+    }
+    public static void defendCell(){
+
     }
 
     private static boolean compareArray(char comparedArray[]) { // метод сравнивает все значения в массиве и возвращает true, елси они одинаковые
@@ -147,7 +148,6 @@ public class Main {
                 return false;
             } // если не совпадают - выходим, так как победы нет
         }
-        //  System.out.println("СОВПАЛО");
         return true;
     }
 }
